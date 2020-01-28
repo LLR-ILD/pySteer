@@ -1,0 +1,64 @@
+<marlin>
+  <execute>
+    <processor name="InitDD4hep"/>
+    <processor name="MyIsoLepTagger"/>
+    <processor name="MyIsoTagChecker"/>
+  </execute>
+
+  <global>
+    <parameter name="LCIOInputFiles">
+      /home/kunath/ILD/Data_SM/higgs_ffh/rv01-16-p10_250.sv01-14-01-p00.mILD_o1_v05.E250-TDR_ws.I106479.Pe2e2h.eL.pR-00001-DST.slcio
+    </parameter>
+    <parameter name="MaxRecordNumber" value="2000"/>
+    <parameter name="SkipNEvents" value="0"/>
+    <parameter name="SupressCheck" value="false"/>
+    <!--DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT-->
+    <parameter name="Verbosity"> DEBUG </parameter>
+  </global>
+
+  <processor name="InitDD4hep" type="InitializeDD4hep">
+    <!--InitializeDD4hep reads a compact xml file and initializes the
+    DD4hep::LCDD object-->
+    <parameter name="DD4hepXMLFile" type="string">
+      /cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02/lcgeo/v00-16-03/ILD/compact/ILD_l5_o1_v05/ILD_l5_o1_v05.xml
+    </parameter>
+  </processor>
+
+  <processor name="MyIsoLepTagger" type="IsolatedLeptonTaggingProcessor">
+   <parameter name="CosConeLarge" type="float">0.95 </parameter>
+   <parameter name="CosConeSmall" type="float">0.98 </parameter>
+   <parameter name="CutOnTheISOElectronMVA" type="float">-0.1 </parameter>
+   <parameter name="CutOnTheISOMuonMVA" type="float">-0.8 </parameter>
+   <parameter name="DirOfISOElectronWeights" type="string">
+     /cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02/MarlinReco/v01-25/Analysis/IsolatedLeptonTagging/weights/e1e1h_gg_qqqq_250
+   </parameter>
+   <parameter name="DirOfISOMuonWeights" type="string">
+     /cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02/MarlinReco/v01-25/Analysis/IsolatedLeptonTagging/weights/yyxylv_yyxyyx_woYoke_500.mILD_l5_o1_v02
+   </parameter>
+   <!--parameter name="DirOfISOMuonWeights"     type="string">/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02/MarlinReco/v01-25/Analysis/IsolatedLeptonTagging/weights/e2e2h_gg_qqqq_250 </parameter-->
+   <parameter name="InputPandoraPFOsCollection" type="string"
+     lcioInType="ReconstructedParticle">PandoraPFOs </parameter>
+   <parameter name="InputPrimaryVertexCollection" type="string"
+     lcioInType="ReconstructedParticle">PrimaryVertex </parameter>
+   <parameter name="IsSelectingOneIsoLep" type="bool"> false </parameter>
+   <parameter name="MaxD0SigForElectron" type="float">50 </parameter>
+   <parameter name="MaxD0SigForMuon" type="float">20 </parameter>
+   <parameter name="MaxEOverPForElectron" type="float">1.3 </parameter>
+   <parameter name="MaxEOverPForMuon" type="float">0.3 </parameter>
+   <parameter name="MaxZ0SigForElectron" type="float">50 </parameter>
+   <parameter name="MaxZ0SigForMuon" type="float">20 </parameter>
+   <parameter name="MinEOverPForElectron" type="float">0.5 </parameter>
+   <parameter name="MinEecalOverTotEForElectron" type="float">0.9 </parameter>
+   <parameter name="MinPForElectron" type="float">5 </parameter>
+   <parameter name="MinPForMuon" type="float">5 </parameter>
+   <parameter name="OutputIsoLeptonsCollection" type="string"
+     lcioOutType="ReconstructedParticle">ISOLeptons </parameter>
+   <parameter name="OutputPFOsWithoutIsoLepCollection" type="string"
+     lcioOutType="ReconstructedParticle">PandoraPFOsWithoutIsoLep </parameter>
+  </processor>
+
+  <processor name="MyIsoTagChecker" type="CheckIsolatedLeptonTaggingProcessor">
+    <parameter name="PfoCollection"> PandoraPFOs </parameter>
+    <parameter name="OutputRootFile"> check_iso_lepton_tagging </parameter>
+  </processor>
+</marlin>
