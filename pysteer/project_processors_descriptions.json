@@ -1,0 +1,58 @@
+{
+    "CheckIsolatedLeptonTaggingProcessor": {
+        "OutputRootFile": "Name of the output root file.",
+        "PfoCollection": "The Pandora PFO collection name."
+    },
+    "CheckRelationProcessor": {
+        "MCParticleCollection": "This MCParticle collection should link to the specified .\"\n      \"ReconstructedParticle collection.",
+        "PfoCollection": "This ReconstructedParticle collection should link to the specified .\"\n      \"MCParticle collection.",
+        "RelationCollection": "Collection of relations that link the Monte Carlo particles with the \"\n    \"reconstructed particles."
+    },
+    "DraftProcessor": {},
+    "ExampleProcessor": {
+        "PfoCollection": "The Pandora PFO collection name.",
+        "PfoEnergyCut": "A cut to apply on the pfo energy."
+    },
+    "McAsReconstructedProcessor": {
+        "ImitateDetectorAcceptance": "Choose that an imitation of the detector acceptance is applied (beam pipe \"\n      \"region rejection, calorimeter thresholds for neutral, pT thresholds for \"\n      \"charged particles).",
+        "KeepOnlyVisible": "Choose that only those MC particles with a type that is visible in the \"\n      \"detector should be kept.",
+        "MCInCollection": "MCParticle collection from which we want a ReconstructedParticle version.",
+        "MCRecLinkCollectionName": "The new (trivial) relations collection between the newly created \"\n      \"ReconstructedParticles and their respective underlying MCParticle.",
+        "MaxCosTheta": "Cut on |cos(Theta)| to imitate the forward/backward region without \"\n      \"reliable reconstruction.",
+        "NeutralHCALCut": "Cut on the energy [Gev] applied to the neutral particles (but the photon).\"\n      \" Above this value we assume it is possible to detect it in the HCAL.",
+        "PhotonECALCut": "Cut on the energy [Gev] applied to the photons. Above this value we assume\"\n      \" it is possible to detect the photon in the ECAL.",
+        "RPOutCollection": "Name of the ReconstructedParticles collection created by this processor.",
+        "chargedMinPT": "Cut on the transverse momentum [Gev]. This is applied for charged \"\n      \"particles."
+    },
+    "SkipEmptyEventsProcessor": {
+        "SkipCollection": "Name of the LCCollection for which the event should be skipped in case it \"\n      \"is empty."
+    },
+    "SlcioToRootProcessor": {
+        "PfoCollection": "The RP collection whoms (partial) information should be passed into the \"\n      \".root file.",
+        "outputRootFileName": "Name of the output root file.",
+        "treeName": "Name of the tree. Should be the process type."
+    },
+    "SplitOffZProcessor": {
+        "HiggsCollection": "Name of the new PFO collection with (only) the Higgs decay remnants.",
+        "OutputRootFile": "Name of the output root file.",
+        "OverlayCollection": "Name of the new PFO collection with (only) the overlay.",
+        "PfoCollection": "The Pandora PFO collection name.",
+        "ZCollection": "Name of the new PFO collection with (only) the Z decay remnants.",
+        "ZDecayChannel": "Can be ZDec_EL, ZDec_MU, ZDec_TAU or ZDec_NU.",
+        "photonRecombinationCos": "Cosine of the angle up to which photons should be recombined with an \"\n      \"isolated lepton for the Z reconstruction."
+    },
+    "TauConesProcessor": {
+        "IsolationConeAngle": "Outer isolation cone around the search cone of the tau jet in rad.",
+        "IsolationEnergy": "Maximal allowed energy within the isolation cone region.",
+        "MaxCosTheta": "Cut on the cosine of theta to suppress background.",
+        "MaxInvariantMass": "Upper limit on the invariant mass of the tau candidate.",
+        "MinPtSeed": "Minimum tranverse momentum of tau seed.",
+        "OutputRootFile": "Name of the output root file.",
+        "PfoCollection": "The Pandora PFO collection name.",
+        "PtCut": "Cut on Pt to suppress background.",
+        "SearchConeAngle": "Opening angle of the search cone for the tau jet in rad.",
+        "TauCollection": "Name of the new PFO collection of tau candidates.",
+        "TauRelationCollection": "Name of the relation collection linking the tau candidates to their \"\n    \"counterparts in the ReconstructedParticle collection.",
+        "TauRestCollection": "Name of the new PFO collection containing all those particles that are \"\n      \"not part of a tau candidate."
+    }
+}

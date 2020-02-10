@@ -1,0 +1,32 @@
+{
+    "InitializeDD4hep": {
+        "DD4hepXMLFile": "Name of the DD4hep compact xml file to load",
+        "EncodingStringParameter": "Alternate name for EncodingStringParameterName",
+        "EncodingStringParameterName": "If given, the Compact File parameter of that name will be used as argument to LCTrackerCellID::set_encoding_string()"
+    },
+    "IsolatedLeptonTaggingProcessor": {
+        "CosConeLarge": "cosine of the larger cone",
+        "CosConeSmall": "cosine of the smaller cone",
+        "CutOnTheISOElectronMVA": "Cut on the mva output of isolated electron selection",
+        "CutOnTheISOMuonMVA": "Cut on the mva output of isolated muon selection",
+        "DirOfISOElectronWeights": "Directory of Weights for the Isolated Electron MVA Classification",
+        "DirOfISOMuonWeights": "Directory of Weights for the Isolated Muon MVA Classification",
+        "InputPandoraPFOsCollection": "Name of the PandoraPFOs collection",
+        "InputPrimaryVertexCollection": "Name of the Primary Vertex collection",
+        "IsSelectingOneIsoLep": "flag to select one most like isolated lepton",
+        "MaxD0SigForElectron": "Maximum d0 significance for electron",
+        "MaxD0SigForMuon": "Maximum D0 significance for muon",
+        "MaxEOverPForElectron": "Maximum ratio of energy in calorimeters over momentum for electron",
+        "MaxEOverPForMuon": "Maximum ratio of energy in calorimeters over momentum for muon",
+        "MaxZ0SigForElectron": "Maximum Z0 significance for electron",
+        "MaxZ0SigForMuon": "Maximum Z0 significance for muon",
+        "MinEOverPForElectron": "minimum ratio of energy in calorimeters over momentum for electron",
+        "MinEecalOverTotEForElectron": "minimum ratio of energy in ecal over energy in ecal+hcal",
+        "MinEyokeForMuon": "Minimum energy in yoke for electron",
+        "MinPForElectron": "Minimum momentum for electron",
+        "MinPForMuon": "Minimum momentum for muon",
+        "OutputIsoLeptonsCollection": "Name of collection with the selected isolated lepton",
+        "OutputPFOsWithoutIsoLepCollection": "Name of the new PFOs collection without isolated lepton",
+        "UseYokeForMuonID": "use yoke for muon ID"
+    }
+}

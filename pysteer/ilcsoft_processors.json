@@ -1,0 +1,88 @@
+{
+    "InitializeDD4hep": {
+        "DD4hepXMLFile": {
+            "value": "dd4hep_compact.xml"
+        },
+        "EncodingStringParameter": {
+            "value": ""
+        },
+        "EncodingStringParameterName": {
+            "value": ""
+        }
+    },
+    "IsolatedLeptonTaggingProcessor": {
+        "CosConeLarge": {
+            "value": "0.95"
+        },
+        "CosConeSmall": {
+            "value": "0.98"
+        },
+        "CutOnTheISOElectronMVA": {
+            "value": "0.5"
+        },
+        "CutOnTheISOMuonMVA": {
+            "value": "0.7"
+        },
+        "DirOfISOElectronWeights": {
+            "value": "isolated_electron_weights"
+        },
+        "DirOfISOMuonWeights": {
+            "value": "isolated_muon_weights"
+        },
+        "InputPandoraPFOsCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "InputPrimaryVertexCollection": {
+            "lcioInType": "LCIO::VERTEX",
+            "value": "PrimaryVertex"
+        },
+        "IsSelectingOneIsoLep": {
+            "value": "true"
+        },
+        "MaxD0SigForElectron": {
+            "value": "50."
+        },
+        "MaxD0SigForMuon": {
+            "value": "5."
+        },
+        "MaxEOverPForElectron": {
+            "value": "1.3"
+        },
+        "MaxEOverPForMuon": {
+            "value": "0.3"
+        },
+        "MaxZ0SigForElectron": {
+            "value": "5."
+        },
+        "MaxZ0SigForMuon": {
+            "value": "5."
+        },
+        "MinEOverPForElectron": {
+            "value": "0.5"
+        },
+        "MinEecalOverTotEForElectron": {
+            "value": "0.9"
+        },
+        "MinEyokeForMuon": {
+            "value": "1.2"
+        },
+        "MinPForElectron": {
+            "value": "5."
+        },
+        "MinPForMuon": {
+            "value": "5."
+        },
+        "OutputIsoLeptonsCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "ISOLeptons"
+        },
+        "OutputPFOsWithoutIsoLepCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOsWithoutIsoLep"
+        },
+        "UseYokeForMuonID": {
+            "value": "false"
+        }
+    }
+}

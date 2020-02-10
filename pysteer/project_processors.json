@@ -1,0 +1,153 @@
+{
+    "CheckIsolatedLeptonTaggingProcessor": {
+        "OutputRootFile": {
+            "value": "check_iso_lepton_tagging"
+        },
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        }
+    },
+    "CheckRelationProcessor": {
+        "MCParticleCollection": {
+            "lcioInType": "LCIO::MCPARTICLE",
+            "value": "MCParticlesSkimmed"
+        },
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "RelationCollection": {
+            "lcioInType": "LCIO::LCRELATION",
+            "value": "RecoMCTruthLink"
+        }
+    },
+    "DraftProcessor": {},
+    "ExampleProcessor": {
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "PfoEnergyCut": {
+            "value": "0."
+        }
+    },
+    "McAsReconstructedProcessor": {
+        "ImitateDetectorAcceptance": {
+            "value": "true"
+        },
+        "KeepOnlyVisible": {
+            "value": "true"
+        },
+        "MCInCollection": {
+            "lcioInType": "LCIO::MCPARTICLE",
+            "value": "MCParticlesSkimmed"
+        },
+        "MCRecLinkCollectionName": {
+            "lcioOutType": "LCIO::LCRELATION",
+            "value": "MCRecLink"
+        },
+        "MaxCosTheta": {
+            "value": "0.995"
+        },
+        "NeutralHCALCut": {
+            "value": "0.5"
+        },
+        "PhotonECALCut": {
+            "value": "0.2"
+        },
+        "RPOutCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "MCParticlesNowRP"
+        },
+        "chargedMinPT": {
+            "value": "0.105"
+        }
+    },
+    "SkipEmptyEventsProcessor": {
+        "SkipCollection": {
+            "value": "PandoraPFOs"
+        }
+    },
+    "SlcioToRootProcessor": {
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "outputRootFileName": {
+            "value": "rp_simple"
+        },
+        "treeName": {
+            "value": "process?"
+        }
+    },
+    "SplitOffZProcessor": {
+        "HiggsCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "HRemnantsPFOs"
+        },
+        "OutputRootFile": {
+            "value": "split_off_z"
+        },
+        "OverlayCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "OverlayPFOs"
+        },
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "ZCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "ZRemnantsPFOs"
+        },
+        "ZDecayChannel": {
+            "value": "ZDec_MU"
+        },
+        "photonRecombinationCos": {
+            "value": "0.99"
+        }
+    },
+    "TauConesProcessor": {
+        "IsolationConeAngle": {
+            "value": "0.2"
+        },
+        "IsolationEnergy": {
+            "value": "2.0"
+        },
+        "MaxCosTheta": {
+            "value": "0.99"
+        },
+        "MaxInvariantMass": {
+            "value": "2.0"
+        },
+        "MinPtSeed": {
+            "value": "5.0"
+        },
+        "OutputRootFile": {
+            "value": "tau_cones"
+        },
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "PtCut": {
+            "value": "0.2"
+        },
+        "SearchConeAngle": {
+            "value": "0.1"
+        },
+        "TauCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "TauPFOs"
+        },
+        "TauRelationCollection": {
+            "lcioOutType": "LCIO::LCRELATION",
+            "value": "TauRelation"
+        },
+        "TauRestCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "TauRestPFOs"
+        }
+    }
+}
