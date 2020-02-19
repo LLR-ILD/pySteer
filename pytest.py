@@ -15,9 +15,19 @@ cpd = {"IsolatedLeptonTaggingProcessor": {
 if __name__ == "__main__":
     steerer = Pysteer(change_parameter_defaults=cpd,
         set_parameter_value={"EncodingStringParameterName": "stringper"})
-    steerer.add("TauConesProcessor", {"IsolationConeAngle": dict(value=".3")})
+    steerer.add("TauConesProcessor",
+        {"IsolationConeAngle": dict(value=".25"),
+        "IsolationEnergy": dict(value="5.0"),
+        "SearchConeAngle": dict(value=".12")})
     steerer.add("IsolatedLeptonTaggingProcessor")
+    for dec_channel in ["ZDec_EL", "ZDec_MU", "ZDec_TAU", "ZDec_NU"]:
+        steerer.add("SplitOffZProcessor", {
+            "ZDecayChannel": dict(value=dec_channel),
+            "HiggsCollection": dict(value="HRemnantsPFOs_{}".format(dec_channel)),
+            "ZCollection": dict(value="ZRemnantsPFOs_{}".format(dec_channel)),
+            "OverlayCollection": dict(value="OverlayPFOs_{}".format(dec_channel)),
+        })
     #steerer.write(xml_name="steer.xml")
     #print(steerer)
-    steerer.marlin_global.MaxRecordNumber = 5000
+    steerer.marlin_global.MaxRecordNumber = 10000
     steerer.run()

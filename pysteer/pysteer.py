@@ -187,9 +187,10 @@ class Pysteer(object):
             log_name = "log_" + steer_name.rstrip(".xml") + ".txt"
             self.write(process_dir / steer_name)
             cmd = cmd_template.format(steer_name, log_name)
-            subprocess.call(cmd, cwd=process_dir, shell=True) # TODO: Get rid of securit-flawed shell=True
+            subprocess.call(cmd, cwd=process_dir, shell=True) # TODO: Get rid of securit-flawed shell=True.
 
         if batch_mode and shutil.which("bsub") is not None:
+            cmd_template = "bsub -q s 'Marlin {} &> {} 2>&1'"
             for pol, processes_dict in self.lcio_dict.items():
                 if pols and pol in pols:
                     continue
@@ -198,17 +199,16 @@ class Pysteer(object):
                         continue
                     process_dir = run_dir / pol / process
                     process_dir.mkdir(parents=True, exist_ok=True)
-                    cmd_template = "bsub -q s 'Marlin {} &> {} 2>&1'"
                     make_files(files, process_dir, process,
                         cmd_template=cmd_template)
         else:
+            cmd_template = "Marlin {} &> {} 2>&1"
             if not pols:
                 pols = self.lcio_dict.keys()
             files = [""]
             for pol in pols:
                 if self.lcio_dict[pol].get(debug_process):
                     files.extend(self.lcio_dict[pol].get(debug_process))
-            cmd_template = "Marlin {} &> {} 2>&1"
             make_files(files, process_dir=run_dir, process=debug_process,
                 cmd_template=cmd_template)
 
