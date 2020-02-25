@@ -149,5 +149,11 @@
             "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
             "value": "TauRestPFOs"
         }
+    },
+    "TauFromTrackProcessor": {
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        }
     }
 }

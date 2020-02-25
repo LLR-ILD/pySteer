@@ -9,7 +9,8 @@ import os
 import pathlib
 
 def lcio_file_dict(
-    path_starts=["/home/kunath/ILD/Data_SM"],
+    path_starts=["/home/kunath/ILD/Data_SM",
+        "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws"],
     exclude=["Pffh_mumu"], require=[], machine="E250-TDR_ws"):
     """Build a dictionary of the .slcio file locations.
 

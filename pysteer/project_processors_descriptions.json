@@ -54,5 +54,8 @@
         "TauCollection": "Name of the new PFO collection of tau candidates.",
         "TauRelationCollection": "Name of the relation collection linking the tau candidates to their \"\n    \"counterparts in the ReconstructedParticle collection.",
         "TauRestCollection": "Name of the new PFO collection containing all those particles that are \"\n      \"not part of a tau candidate."
+    },
+    "TauFromTrackProcessor": {
+        "PfoCollection": "The Pandora PFO collection name."
     }
 }

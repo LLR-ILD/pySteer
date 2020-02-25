@@ -178,7 +178,7 @@ class Pysteer(object):
             this list. This parameter is only used if batch_mode == True.
         """
         now = datetime.now()
-        run_dir = Path.home() / Path(now.strftime("%Y-%m-%d-%H:%M:%S"))
+        run_dir = Path.home() / Path(now.strftime("%Y-%m-%d-%H%M%S"))
         run_dir.mkdir()
         def make_files(files, process_dir, process, cmd_template):
             self.marlin_global.LCIOInputFiles = ("\n          ".join(files)
