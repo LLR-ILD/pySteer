@@ -108,6 +108,30 @@
             "value": "0.99"
         }
     },
+    "TauConesBDTInputProcessor": {
+        "IsolationConeAngle": {
+            "value": "0.2"
+        },
+        "MaxCosTheta": {
+            "value": "0.99"
+        },
+        "MinPtSeed": {
+            "value": "5.0"
+        },
+        "OutputRootFile": {
+            "value": "tau_cones_bdt_input"
+        },
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "PtCut": {
+            "value": "0.2"
+        },
+        "SearchConeAngle": {
+            "value": "0.1"
+        }
+    },
     "TauConesProcessor": {
         "IsolationConeAngle": {
             "value": "0.2"
@@ -115,11 +139,20 @@
         "IsolationEnergy": {
             "value": "2.0"
         },
+        "MaxChargedRemnants": {
+            "value": "4"
+        },
         "MaxCosTheta": {
             "value": "0.99"
         },
         "MaxInvariantMass": {
             "value": "2.0"
+        },
+        "MaxIsoParticles": {
+            "value": "100"
+        },
+        "MaxRemnants": {
+            "value": "10"
         },
         "MinPtSeed": {
             "value": "5.0"
