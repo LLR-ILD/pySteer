@@ -189,8 +189,11 @@ class Pysteer(object):
             cmd = cmd_template.format(steer_name, log_name)
             subprocess.call(cmd, cwd=process_dir, shell=True) # TODO: Get rid of securit-flawed shell=True.
 
-        if batch_mode and shutil.which("bsub") is not None:
-            cmd_template = "bsub -q s 'Marlin {} &> {} 2>&1'"
+        if batch_mode:
+            if shutil.which("bsub") is not None:
+                cmd_template = "bsub -q s 'Marlin {} &> {} 2>&1'"
+            else:
+                cmd_template = "Marlin {} &> {} 2>&1"
             for pol, processes_dict in self.lcio_dict.items():
                 if pols and pol in pols:
                     continue

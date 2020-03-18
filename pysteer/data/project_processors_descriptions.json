@@ -43,11 +43,13 @@
     },
     "TauConesBDTInputProcessor": {
         "IsolationConeAngle": "Outer isolation cone around the search cone of the tau jet in rad.",
+        "MCParticleCollection": "This MCParticle collection should link to the specified .\"\n      \"ReconstructedParticle collection.",
         "MaxCosTheta": "Cut on the cosine of theta to suppress background.",
         "MinPtSeed": "Minimum tranverse momentum of tau seed.",
         "OutputRootFile": "Name of the output root file.",
         "PfoCollection": "The Pandora PFO collection name.",
         "PtCut": "Cut on Pt to suppress background.",
+        "RelationCollection": "Collection of relations that link the Monte Carlo particles with the \"\n    \"reconstructed particles.",
         "SearchConeAngle": "Opening angle of the search cone for the tau jet in rad."
     },
     "TauConesProcessor": {

@@ -112,6 +112,10 @@
         "IsolationConeAngle": {
             "value": "0.2"
         },
+        "MCParticleCollection": {
+            "lcioInType": "LCIO::MCPARTICLE",
+            "value": "MCParticlesSkimmed"
+        },
         "MaxCosTheta": {
             "value": "0.99"
         },
@@ -127,6 +131,10 @@
         },
         "PtCut": {
             "value": "0.2"
+        },
+        "RelationCollection": {
+            "lcioInType": "LCIO::LCRELATION",
+            "value": "RecoMCTruthLink"
         },
         "SearchConeAngle": {
             "value": "0.1"

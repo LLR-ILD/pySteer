@@ -14,14 +14,15 @@ from .processor_paths import load_global_processor_defaults
 # ------------------------------------------------------------------------------
 # Functionality added by this file.
 def json_name(stored_type):
+    json_folder = "data"
     if stored_type == "project":
-        return "project_processors.json"
+        return f"{json_folder}/project_processors.json"
     elif stored_type == "project descriptions":
-        return "project_processors_descriptions.json"
+        return f"{json_folder}/project_processors_descriptions.json"
     elif stored_type == "ilcsoft":
-        return "ilcsoft_processors.json"
+        return f"{json_folder}/ilcsoft_processors.json"
     elif stored_type == "ilcsoft descriptions":
-        return "ilcsoft_processors_descriptions.json"
+        return f"{json_folder}/ilcsoft_processors_descriptions.json"
     else:
         raise Exception("`{}` is not a valid option!".format(stored_type))
 

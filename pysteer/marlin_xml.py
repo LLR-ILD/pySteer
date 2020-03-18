@@ -45,7 +45,7 @@ def xml_string(execute_processors, global_dict, project_defaults):
     # The per-processor part.
     for name, proc in zip(called_processor_names, execute_processors):
         proc_type, proc_dict = proc
-        header = "  <processor name={} type={}>\n".format(name, proc_type)
+        header = f"  <processor name=\"{name}\" type=\"{proc_type}\">\n"
         xml_pieces.append(header)
         xml_pieces.append(xml_parameters(
             default_dict=project_defaults[proc_type],
