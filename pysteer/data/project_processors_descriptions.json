@@ -13,6 +13,25 @@
         "PfoCollection": "The Pandora PFO collection name.",
         "PfoEnergyCut": "A cut to apply on the pfo energy."
     },
+    "JGenericViewer": {
+        "ClusterCollection": "Cluster Collection Name",
+        "DetectorModel": "Detector Model",
+        "LayerCaloHit": "Layer for Calo Hits",
+        "LayerClusters": "Layer for Reco Clusters",
+        "LayerReco": "Layer for Reco Particles",
+        "LayerSimCaloHit": "Layer for Sim Calo Hits",
+        "LayerSimTrackerHit": "Layer for Sim Tracker Hits",
+        "LayerTrackerHit": "Layer for Tracker Hits",
+        "LayerTracks": "Layer for Tracks",
+        "LayerTrueClusters": "Layer for True Clusters",
+        "LayerTrueTracks": "Layer for True Tracks",
+        "MagneticField": "Magnetic Field",
+        "ParticleCollection": "Particle Collection Name",
+        "TrackCollection": "Track Collection Name",
+        "TrueClusterCollection": "True Cluster Collection Name",
+        "TrueTrackCollection": "True Track Collection Name",
+        "WaitForKeyboard": "Wait for Keyboard before proceed"
+    },
     "McAsReconstructedProcessor": {
         "ImitateDetectorAcceptance": "Choose that an imitation of the detector acceptance is applied (beam pipe \"\n      \"region rejection, calorimeter thresholds for neutral, pT thresholds for \"\n      \"charged particles).",
         "KeepOnlyVisible": "Choose that only those MC particles with a type that is visible in the \"\n      \"detector should be kept.",

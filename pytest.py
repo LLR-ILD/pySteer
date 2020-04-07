@@ -17,12 +17,12 @@ if __name__ == "__main__":
         set_parameter_value={"EncodingStringParameterName": "stringper"})
     steerer.marlin_global.Verbosity = "DEBUG"
     #steerer.add("TauFromTrackProcessor")
-    #steerer.add("TauConesProcessor",{
-    #    "IsolationConeAngle": dict(value=".3"),
-    #    "IsolationEnergy": dict(value="1.5"),
-    #    "MaxInvariantMass": dict(value="2.0"),
-    #    "SearchConeAngle": dict(value=".12")
-    #})
+    steerer.add("TauConesBDTInputProcessor",{
+        "IsolationConeAngle": dict(value=".3"),
+        "IsolationEnergy": dict(value="1.5"),
+        "MaxInvariantMass": dict(value="2.0"),
+        "SearchConeAngle": dict(value=".12")
+    })
 
 
     #for min_pt_seed in ["1.5"]:#["0.0", "1.0", "1.5", "2.0", "3.0", "4.0", "5.0", "7.5", "10."]:
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     #        "SearchConeAngle": dict(value="0.15"),#"0.1"),
     #    })
 
-    steerer.add("DraftProcessor")
+    #steerer.add("DraftProcessor")
 
     #steerer.add("IsolatedLeptonTaggingProcessor")
     #for dec_channel in ["ZDec_EL", "ZDec_MU", "ZDec_TAU", "ZDec_NU"]:

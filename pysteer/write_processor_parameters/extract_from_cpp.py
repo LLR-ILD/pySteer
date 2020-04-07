@@ -225,7 +225,7 @@ def marlin_register_dict(code):
         description_dict[name] = description
         param_dict[name] = dict(value=value, lcioOutType=lcioOutType)
 
-    return  param_dict, description_dict
+    return param_dict, description_dict
 
 # ------------------------------------------------------------------------------
 # The main function of this file.
