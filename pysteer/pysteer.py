@@ -164,8 +164,9 @@ class Pysteer(object):
     # --------------------------------------------------------------------------
     def run(self, batch_mode=True, debug_process="Pe3e3h", pols=None,
         batch_processes=None):
-        """Actually to the analysis by calling Marlin on a steering file.
-        : param batch_mode (bool): If true (default), and if a batch sytsem is
+        """Actually do the analysis by calling Marlin on a steering file.
+
+        : param batch_mode (bool): If true (default), and if a batch system is
             found on the machine, the jobs are sent to the batch system.
             Else, the job is directly run on the machine. In this case, only
             the process `debug_process` is used.

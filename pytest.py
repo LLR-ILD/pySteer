@@ -11,42 +11,64 @@ cpd = {"IsolatedLeptonTaggingProcessor": {
 }
 
 # ------------------------------------------------------------------------------
+# Functions useful for the testing in __main__.
+def testFlags(steerer, cone_sizes=None, pt_cuts=None):
+    if not cone_sizes:
+        cone_sizes = ["0.00", "0.04","0.08", "0.12", "0.16", "0.20", "0.30"]
+    if not pt_cuts:
+        pt_cuts = ["0.0", "0.5", "1.0", "2.0"]
+    def tauConesDict(flag, cone_size, pt_cut):
+        return {
+            "IsolationConeAngle": dict(value="0.32"),
+            "MaxCosTheta": dict(value="1.1"),
+            "MinPtSeed": dict(value="2.0"),
+            "OutputRootFile": dict(value=f"flag={flag}_cone={cone_size}"
+              "_pt_cut={pt_cut}_tau_cones_bdt_input"),
+            "PtCut": dict(value=pt_cut),
+            "SearchConeAngle": dict(value=cone_size),
+            "TauFlag": dict(value=str(flag)),
+        }
+    processor = "TauConesBDTInputProcessor"
+    for flag in range(32):
+        for cone_size in cone_sizes:
+            pt_cut = "0.0"
+            steerer.add(processor, tauConesDict(flag, cone_size, pt_cut))
+        for pt_cut in pt_cuts:
+            cone_size = "0.08"
+            steerer.add(processor, tauConesDict(flag, cone_size, pt_cut))
+    return steerer
+
+def tauChain(steerer):
+    steerer.add("TauConesProcessor", {
+        "IsolationConeAngle": dict(value="0.30"),
+        "SearchConeAngle": dict(value="0.13"),
+        "MaxCosTheta": dict(value="1.1"),
+        "MinPtSeed": dict(value="3.0"),
+        "PtCut": dict(value="1.0"),
+    })
+    steerer.add("IsolatedLeptonTaggingProcessor")
+    for dec_channel in ["ZDec_TAU"]: # ["ZDec_EL", "ZDec_MU", "ZDec_TAU", "ZDec_NU"]:
+        steerer.add("SplitOffZProcessor", {
+            "ZDecayChannel": dict(value=dec_channel),
+            "HiggsCollection": dict(value="HRemnantsPFOs_{}".format(dec_channel)),
+            "ZCollection": dict(value="ZRemnantsPFOs_{}".format(dec_channel)),
+            "OverlayCollection": dict(value="OverlayPFOs_{}".format(dec_channel)),
+    })
+    return steerer
+
+# ------------------------------------------------------------------------------
 # Some basic test/use examples for pysteer.
 if __name__ == "__main__":
     steerer = Pysteer(change_parameter_defaults=cpd,
         set_parameter_value={"EncodingStringParameterName": "stringper"})
     steerer.marlin_global.Verbosity = "DEBUG"
-    #steerer.add("TauFromTrackProcessor")
-    steerer.add("TauConesBDTInputProcessor",{
-        "IsolationConeAngle": dict(value=".3"),
-        "IsolationEnergy": dict(value="1.5"),
-        "MaxInvariantMass": dict(value="2.0"),
-        "SearchConeAngle": dict(value=".12")
-    })
+    steerer.marlin_global.MaxRecordNumber = -1#2000 #000
 
+    #testFlags(steerer)
+    tauChain(steerer)
 
-    #for min_pt_seed in ["1.5"]:#["0.0", "1.0", "1.5", "2.0", "3.0", "4.0", "5.0", "7.5", "10."]:
-    #    steerer.add("TauConesBDTInputProcessor", {
-    #        "IsolationConeAngle": dict(value="0.2"),
-    #        "MaxCosTheta": dict(value="1.1"),#"0.99"),
-    #        "MinPtSeed": dict(value=min_pt_seed),#"1.0"),
-    #        "OutputRootFile": dict(value=f"{min_pt_seed}tau_cones_bdt_input"),
-    #        "PtCut": dict(value="0.0"),#"0.2"),
-    #        "SearchConeAngle": dict(value="0.15"),#"0.1"),
-    #    })
-
-    #steerer.add("DraftProcessor")
-
-    #steerer.add("IsolatedLeptonTaggingProcessor")
-    #for dec_channel in ["ZDec_EL", "ZDec_MU", "ZDec_TAU", "ZDec_NU"]:
-    #    steerer.add("SplitOffZProcessor", {
-    #        "ZDecayChannel": dict(value=dec_channel),
-    #        "HiggsCollection": dict(value="HRemnantsPFOs_{}".format(dec_channel)),
-    #        "ZCollection": dict(value="ZRemnantsPFOs_{}".format(dec_channel)),
-    #        "OverlayCollection": dict(value="OverlayPFOs_{}".format(dec_channel)),
-    #    })
     #steerer.write(xml_name="steer.xml")
     #print(steerer)
-    steerer.marlin_global.MaxRecordNumber = 100 #000
-    steerer.run(batch_mode=False)
+    steerer.run(batch_mode=True)
+    #steerer.run(batch_mode=False)
     #steerer.run(batch_mode=False, pols=["eLpL"], debug_process="Pe1e1h")

@@ -32,64 +32,6 @@
             "value": "0."
         }
     },
-    "JGenericViewer": {
-        "ClusterCollection": {
-            "lcioInType": "LCIO::CLUSTER",
-            "value": "ClustersAR"
-        },
-        "DetectorModel": {
-            "value": "(int)0"
-        },
-        "LayerCaloHit": {
-            "value": "(int)-1"
-        },
-        "LayerClusters": {
-            "value": "(int)-1"
-        },
-        "LayerReco": {
-            "value": "(int)9"
-        },
-        "LayerSimCaloHit": {
-            "value": "(int)-1"
-        },
-        "LayerSimTrackerHit": {
-            "value": "(int)-1"
-        },
-        "LayerTrackerHit": {
-            "value": "(int)-1"
-        },
-        "LayerTracks": {
-            "value": "(int)-1"
-        },
-        "LayerTrueClusters": {
-            "value": "(int)-1"
-        },
-        "LayerTrueTracks": {
-            "value": "(int)-1"
-        },
-        "MagneticField": {
-            "value": "(float)4.0"
-        },
-        "ParticleCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "RecoParticles"
-        },
-        "TrackCollection": {
-            "lcioInType": "LCIO::TRACK",
-            "value": "TPC_Tracks"
-        },
-        "TrueClusterCollection": {
-            "lcioInType": "LCIO::CLUSTER",
-            "value": "TrueClusters"
-        },
-        "TrueTrackCollection": {
-            "lcioInType": "LCIO::TRACK",
-            "value": "TrueTracks"
-        },
-        "WaitForKeyboard": {
-            "value": "(int)1"
-        }
-    },
     "McAsReconstructedProcessor": {
         "ImitateDetectorAcceptance": {
             "value": "true"
@@ -196,6 +138,9 @@
         },
         "SearchConeAngle": {
             "value": "0.1"
+        },
+        "TauFlag": {
+            "value": "0"
         }
     },
     "TauConesProcessor": {
