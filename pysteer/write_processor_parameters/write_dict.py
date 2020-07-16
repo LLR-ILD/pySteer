@@ -48,6 +48,7 @@ def json_folder():
 def write_jsons(type_prefix, processors_dict, descriptions_dict):
     processor_file = os.path.join(
         json_folder(), json_name(type_prefix))
+    os.makedirs(os.path.dirname(processor_file), exist_ok=True)
     with open(processor_file, "w") as write_file:
         json.dump(processors_dict, write_file, indent=4, sort_keys=True)
     descriptions_file = os.path.join(
