@@ -1,0 +1,5 @@
+name: pysteer
+dependencies:
+  - python=3.8
+  - pip:
+    - git+https://github.com/kunathj/pySteer#egg=pysteer
