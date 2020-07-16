@@ -33,7 +33,7 @@ def lcio_file_dict(
         simulation_path_starts = default_simulation_path_starts
     polarisations = ["eLpR", "eLpL", "eRpL", "eRpR"]
     full_files_dict = {pol: dict() for pol in polarisations}
-    for path_start in path_starts:
+    for path_start in simulation_path_starts:
         files_dict = {}
         for pol in polarisations:
             files_dict[pol] = collections.defaultdict(list)
@@ -59,8 +59,9 @@ def lcio_file_dict(
         [full_files_dict[pol].update(files_dict[pol]) for pol in polarisations]
     if len(full_files_dict) == 0:
         raise FileNotFoundError("No .slcio process files were found in any of "
-            "the subdirectories of:", path_starts)
+            "the subdirectories of:", simulation_path_starts)
     return full_files_dict
+
 
 class MarlinGlobal(object):
     """Object that stores the information for the <global/> section.
