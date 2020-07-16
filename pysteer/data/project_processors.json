@@ -32,6 +32,22 @@
             "value": "0."
         }
     },
+    "MasterThesisRootProcessor": {
+        "HiggsCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "HRemnantsPFOs"
+        },
+        "OutputRootFile": {
+            "value": "master_thesis"
+        },
+        "ZCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "ZRemnantsPFOs"
+        },
+        "ZDecayChannel": {
+            "value": "ZDec_MU"
+        }
+    },
     "McAsReconstructedProcessor": {
         "ImitateDetectorAcceptance": {
             "value": "true"

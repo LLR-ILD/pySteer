@@ -60,15 +60,17 @@ def tauChain(steerer):
 # Some basic test/use examples for pysteer.
 if __name__ == "__main__":
     steerer = Pysteer(change_parameter_defaults=cpd,
-        set_parameter_value={"EncodingStringParameterName": "stringper"})
+        set_parameter_value={"EncodingStringParameterName": "stringper"},
+        local_project_paths=["/home/kunath/iLCSoft/projects/reference-sample"],
+    )
     steerer.marlin_global.Verbosity = "DEBUG"
     steerer.marlin_global.MaxRecordNumber = -1#2000 #000
 
     #testFlags(steerer)
     tauChain(steerer)
 
-    #steerer.write(xml_name="steer.xml")
+    steerer.write(xml_name="tmp/steer.xml")
     #print(steerer)
-    steerer.run(batch_mode=True)
+    #steerer.run(batch_mode=True)
     #steerer.run(batch_mode=False)
     #steerer.run(batch_mode=False, pols=["eLpL"], debug_process="Pe1e1h")

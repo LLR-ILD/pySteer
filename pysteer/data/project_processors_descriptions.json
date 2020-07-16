@@ -13,6 +13,12 @@
         "PfoCollection": "The Pandora PFO collection name.",
         "PfoEnergyCut": "A cut to apply on the pfo energy."
     },
+    "MasterThesisRootProcessor": {
+        "HiggsCollection": "Name of the new PFO collection with (only) the Higgs decay remnants.",
+        "OutputRootFile": "Name of the output root file.",
+        "ZCollection": "Name of the new PFO collection with (only) the Z decay remnants.",
+        "ZDecayChannel": "Can be ZDec_EL, ZDec_MU, ZDec_TAU or ZDec_NU."
+    },
     "McAsReconstructedProcessor": {
         "ImitateDetectorAcceptance": "Choose that an imitation of the detector acceptance is applied (beam pipe \"\n      \"region rejection, calorimeter thresholds for neutral, pT thresholds for \"\n      \"charged particles).",
         "KeepOnlyVisible": "Choose that only those MC particles with a type that is visible in the \"\n      \"detector should be kept.",

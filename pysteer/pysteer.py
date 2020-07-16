@@ -51,6 +51,7 @@ class Pysteer(object):
             "InitializeDD4hep",
             "IsolatedLeptonTaggingProcessor",
         ],
+        local_project_paths=None,
         marlin_global=None,
         set_parameter_value={},
     ):
@@ -64,6 +65,7 @@ class Pysteer(object):
             self.marlin_global =  marlin_global
         self.ilcsoft_path = ilcsoft_path
         self.ilcsoft_processors = ilcsoft_processors
+        self.local_project_paths = local_project_paths
         self.lcio_dict = lcio_file_dict()
         self.processors_dict = {}
         self.set_parameter_value = set_parameter_value
@@ -87,6 +89,7 @@ class Pysteer(object):
         update_registered(
             confirm_ilcsoft_defaults=confirm_ilcsoft_defaults,
             ilcsoft_path=self.ilcsoft_path,
+            local_paths=self.local_project_paths,
             load_only=self.ilcsoft_processors,
         )
         self.processors_dict = processors_dict_from_json()
@@ -215,8 +218,3 @@ class Pysteer(object):
                     files.extend(self.lcio_dict[pol].get(debug_process))
             make_files(files, process_dir=run_dir, process=debug_process,
                 cmd_template=cmd_template)
-
-
-
-
-

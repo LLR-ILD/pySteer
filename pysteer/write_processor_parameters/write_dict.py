@@ -60,12 +60,13 @@ def write_jsons(type_prefix, processors_dict, descriptions_dict):
 def update_registered(
     confirm_ilcsoft_defaults=False,
     ilcsoft_path="/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02",
+    local_paths=None,
     load_only=None,
     ):
     """For the description, see the docstring of the corresponding class method.
     """
     # (Re)build the project dict.
-    local_files = load_local_processor_defaults()
+    local_files = load_local_processor_defaults(local_paths)
     local_processors, local_descriptions = marlin_processors_dict(
         local_files, return_descriptions=True, load_only=None)
     write_jsons("project", local_processors, local_descriptions)

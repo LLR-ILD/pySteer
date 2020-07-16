@@ -4,6 +4,7 @@
 #
 ################################################################################
 from datetime import datetime
+import os
 
 def xml_parameters(default_dict, changes_dict={}):
     param_strings = []
@@ -72,5 +73,6 @@ def write_steering_file(execute_processors, global_dict, project_defaults,
     : param xml_name (str): Name of the produced steering file.
     """
     xml_content = xml_string(execute_processors, global_dict, project_defaults)
+    os.makedirs(os.path.dirname(xml_name), exist_ok=True)
     with open(xml_name, "w") as write_file:
         write_file.write(xml_content)

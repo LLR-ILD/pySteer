@@ -22,10 +22,13 @@ def cpp_sources_in_paths(processor_search_paths):
 
 # ------------------------------------------------------------------------------
 # 1. Local processors.
-def load_local_processor_defaults():
+def load_local_processor_defaults(processor_search_paths=None):
     """A few assumptions are implicitely made about the structure of the file
     system. See the print statement inside this function.
     """
+    if processor_search_paths is not None:
+        return cpp_sources_in_paths(processor_search_paths)
+
     processors_folder = "processors"
     path_to_processors = __file__
     while True:
