@@ -8,9 +8,14 @@ import collections
 import os
 import pathlib
 
+default_simulation_path_starts = [
+    "/home/kunath/ILD/Data_SM",
+    "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws",
+    "home/kunath/iLCSoft/data/reference-sample-data",
+]
+
 def lcio_file_dict(
-    path_starts=["/home/kunath/ILD/Data_SM",
-        "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws"],
+    simulation_path_starts=None,
     exclude=["Pffh_mumu"], require=[], machine="E250-TDR_ws"):
     """Build a dictionary of the .slcio file locations.
 
@@ -24,6 +29,8 @@ def lcio_file_dict(
         name.
     : param machine(str): Machine name as specified in the .slcio file.
     """
+    if simulation_path_starts is None:
+        simulation_path_starts = default_simulation_path_starts
     polarisations = ["eLpR", "eLpL", "eRpL", "eRpR"]
     full_files_dict = {pol: dict() for pol in polarisations}
     for path_start in path_starts:
@@ -50,6 +57,9 @@ def lcio_file_dict(
                 continue
             files_dict[pol][process].append(path)
         [full_files_dict[pol].update(files_dict[pol]) for pol in polarisations]
+    if len(full_files_dict) == 0:
+        raise FileNotFoundError("No .slcio process files were found in any of "
+            "the subdirectories of:", path_starts)
     return full_files_dict
 
 class MarlinGlobal(object):
@@ -74,12 +84,13 @@ class MarlinGlobal(object):
         SkipNEvents=0,
         Verbosity="MESSAGE",
         process = "Pe1e1h",
+        simulation_path_starts=None,
     ):
         self.MaxRecordNumber = MaxRecordNumber
         self.SkipNEvents = SkipNEvents
         self.Verbosity = Verbosity
 
-        lcio_dict = lcio_file_dict()
+        lcio_dict = lcio_file_dict(simulation_path_starts)
         lcio_processes = []
         for pol_dict in lcio_dict.values():
             lcio_processes.extend(pol_dict.keys())
@@ -108,4 +119,3 @@ class MarlinGlobal(object):
         for param, value in self.__dict__.items():
             gl_print.append("{}: {}".format(param, value))
         return "\n  ".join(gl_print)
-
