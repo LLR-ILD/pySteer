@@ -11,7 +11,7 @@ import pathlib
 default_simulation_path_starts = [
     "/home/kunath/ILD/Data_SM",
     "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws",
-    "home/kunath/iLCSoft/data/reference-sample-data",
+    "/home/kunath/iLCSoft/data/SM",
 ]
 
 def lcio_file_dict(
@@ -33,11 +33,14 @@ def lcio_file_dict(
         simulation_path_starts = default_simulation_path_starts
     polarisations = ["eLpR", "eLpL", "eRpL", "eRpR"]
     full_files_dict = {pol: dict() for pol in polarisations}
-    for path_start in simulation_path_starts:
+    for path_start_str in simulation_path_starts:
         files_dict = {}
         for pol in polarisations:
             files_dict[pol] = collections.defaultdict(list)
-        candidate_paths = pathlib.Path(path_start).rglob("*.slcio")
+        path_start = pathlib.Path(path_start_str)
+        if not path_start.exists():
+            continue
+        candidate_paths = path_start.rglob("*.slcio")
         for path in candidate_paths:
             path = str(path)
             skip_path = False
@@ -57,9 +60,9 @@ def lcio_file_dict(
                 continue
             files_dict[pol][process].append(path)
         [full_files_dict[pol].update(files_dict[pol]) for pol in polarisations]
-    if len(full_files_dict) == 0:
-        raise FileNotFoundError("No .slcio process files were found in any of "
-            "the subdirectories of:", simulation_path_starts)
+    if sum([len(d) for d in full_files_dict.values()]) == 0:
+        raise FileNotFoundError("No '.slcio' process files were found in any "
+            "of the subdirectories of: ", simulation_path_starts)
     return full_files_dict
 
 
