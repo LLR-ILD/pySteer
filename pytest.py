@@ -71,6 +71,5 @@ if __name__ == "__main__":
 
     steerer.write(xml_name="tmp/steer.xml")
     #print(steerer)
-    #steerer.run(batch_mode=True)
-    #steerer.run(batch_mode=False)
+    steerer.run(batch_mode=False)
     #steerer.run(batch_mode=False, pols=["eLpL"], debug_process="Pe1e1h")

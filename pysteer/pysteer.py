@@ -191,7 +191,14 @@ class Pysteer(object):
             log_name = "log_" + steer_name.rstrip(".xml") + ".txt"
             self.write(process_dir / steer_name)
             cmd = cmd_template.format(steer_name, log_name)
-            subprocess.call(cmd, cwd=process_dir, shell=True) # TODO: Get rid of securit-flawed shell=True.
+            if shutil.which("Marlin") is None:
+                print("`Marlin` is not available in this environment.")
+                print("A steering file was nonetheless written into "
+                    f"{process_dir}.")
+                return
+
+            # TODO: Get rid of securit-flawed shell=True.
+            subprocess.call(cmd, cwd=process_dir, shell=True)
 
         if batch_mode:
             if shutil.which("bsub") is not None:
