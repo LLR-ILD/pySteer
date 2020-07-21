@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 from .marlin_global import lcio_file_dict, MarlinGlobal
 from .marlin_xml import write_steering_file, xml_string
 from .write_processor_parameters import (
@@ -55,6 +56,8 @@ class Pysteer(object):
         marlin_global=None,
         set_parameter_value={},
     ):
+        import sys
+        print(sys.argv[0])
         self.change_parameter_defaults = change_parameter_defaults
         self.confirm_ilcsoft_defaults = confirm_ilcsoft_defaults
         self.execute_processors = [] # List filled with processor-dicts that
@@ -181,9 +184,14 @@ class Pysteer(object):
             files are used. To restrict the analysis to specific processes, fill
             this list. This parameter is only used if batch_mode == True.
         """
-        now = datetime.now()
-        run_dir = Path.home() / Path(now.strftime("%Y-%m-%d-%H%M%S"))
-        run_dir.mkdir()
+        def make_folder():
+            now = datetime.now()
+            run_dir = Path.home() / Path(now.strftime("%Y-%m-%d-%H%M%S"))
+            run_dir.mkdir()
+            steering_py = sys.argv[0]
+            shutil.copyfile(steering_py, run_dir / "steerer.py")
+            return run_dir
+
         def make_files(files, process_dir, process, cmd_template):
             self.marlin_global.LCIOInputFiles = ("\n          ".join(files)
                 + "\n     ")
@@ -200,6 +208,7 @@ class Pysteer(object):
             # TODO: Get rid of securit-flawed shell=True.
             subprocess.call(cmd, cwd=process_dir, shell=True)
 
+        run_dir = make_folder()
         if batch_mode:
             if shutil.which("bsub") is not None:
                 cmd_template = "bsub -q s 'Marlin {} &> {} 2>&1'"
