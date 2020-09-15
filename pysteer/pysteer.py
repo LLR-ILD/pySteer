@@ -218,7 +218,7 @@ class Pysteer(object):
                 if pols and pol in pols:
                     continue
                 for process, files in processes_dict.items():
-                    if batch_processes and process in batch_processes:
+                    if batch_processes and process not in batch_processes:
                         continue
                     process_dir = run_dir / pol / process
                     process_dir.mkdir(parents=True, exist_ok=True)
