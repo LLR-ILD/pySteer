@@ -52,6 +52,8 @@ def xml_string(execute_processors, global_dict, project_defaults):
             default_dict=project_defaults[proc_type],
             changes_dict=proc_dict
         ))
+        if "direct_xml" in proc_dict:
+            xml_pieces.append(proc_dict["direct_xml"])
         xml_pieces.append("\n  </processor>\n\n")
     xml_pieces.append("</marlin>")
     xml_content = "".join(xml_pieces)
@@ -71,6 +73,12 @@ def write_steering_file(execute_processors, global_dict, project_defaults,
         be called in the project, have the paramaters and their default values
         in this dict.
     : param xml_name (str): Name of the produced steering file.
+
+    Note: Parameters in the changes_dict that are not found in the processor's
+    global_dict are ignored. Exception to this behavior: The key "direct_xml"
+    can be used to specify a blob of text for the .xml file from within the
+    python script. This is e.g. a way to get around the problem of the LCFIPlus
+    processor's dotted parameters not being detected by the pySteer machinery.
     """
     xml_content = xml_string(execute_processors, global_dict, project_defaults)
     os.makedirs(os.path.dirname(xml_name), exist_ok=True)

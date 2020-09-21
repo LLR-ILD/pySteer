@@ -205,7 +205,7 @@ class Pysteer(object):
                     f"{process_dir}.")
                 return
 
-            # TODO: Get rid of securit-flawed shell=True.
+            # TODO: Get rid of security-flawed shell=True.
             subprocess.call(cmd, cwd=process_dir, shell=True)
 
         run_dir = make_folder()
