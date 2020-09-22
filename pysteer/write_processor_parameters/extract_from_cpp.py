@@ -132,19 +132,37 @@ def c_function_parameter_all_occurances(code, function_name):
             break
     return parameter_list_list
 
-def cpp_value_parser(value):
-    """Strip some common cpp decorators. E.g.
-    5.0f -> 5.0, std::string("abc") -> "abc"
-    """
+
+def old_cpp_value_parser(value):
     if value[-1] == "f":
         return value[:-1]
-    for cpp_phrase in ["std::string(", "bool(", "double(", "int(", "float(",]:
+    for cpp_phrase in ["std::string(", "bool(", "double(", "int(", "float(",
+                       "string("]:
         if cpp_phrase in value and value[-1] == ")":
-            value =  value.replace(cpp_phrase, "")[:-1]
-    # Value as first condition: value=None possible after previous strips.
-    if value and value[0] in "'\"" and value[0] == value[-1]:
-        return value[1:-1]
+            value = value.replace(cpp_phrase, "")[:-1]
     return value
+
+
+def cpp_value_parser(value, is_string_mode=False):
+    """Strip some common cpp decorators. E.g.
+    5.0f -> 5.0, std::string("abc") -> "abc"
+
+    is_string_mode: Simplifies the processor name search.
+    """
+    stringInsidePythonString = lambda val: val[0] in "'\"" and val[0] == val[-1]
+
+    # Value as first condition: value=None possible after previous strips.
+    cleaned_value = old_cpp_value_parser(value)
+    if cleaned_value and stringInsidePythonString(cleaned_value):
+        cleaned_value = cleaned_value[1:-1]
+        if is_string_mode:
+            return (cleaned_value, True)
+        else:
+            return cleaned_value
+    if is_string_mode:
+        return cleaned_value, False
+    else:
+        return cleaned_value
 
 # ------------------------------------------------------------------------------
 # Helper functions that are only interesting in Marlin/ILCSoft context.
@@ -227,6 +245,36 @@ def marlin_register_dict(code):
 
     return param_dict, description_dict
 
+
+def getProcessorName(comment_free_cc):
+    """This more involved approach became necessary when finding out that the
+    LCIOOutProcessor had the following line
+
+    >>> LCIOOutputProcessor::LCIOOutputProcessor(const std::string& typeName) : Processor(typeName),
+
+    before the targetted
+    >>> LCIOOutputProcessor::LCIOOutputProcessor() : Processor("LCIOOutputProcessor"),
+
+    Ergo, it is necessary to look for all occurances of the Processor keyphrase,
+    and only string-type variables can be what we are looking for.
+    """
+    getOutOfList = lambda l: l[0]
+
+    for processor_name_keyphrase in [
+        "marlin::Processor",  # Keyphrase after which the name is defined.
+        " Processor",         # The marlin namespace might have been used.
+    ]:
+        processor_name_candidates = c_function_parameter_all_occurances(
+                comment_free_cc, processor_name_keyphrase)
+        for candidate in processor_name_candidates:
+            name, is_string = cpp_value_parser(getOutOfList(candidate),
+                                               is_string_mode=True)
+            if is_string:
+                return name, True
+
+    return "", False
+
+
 # ------------------------------------------------------------------------------
 # The main function of this file.
 def marlin_processors_dict(look_at_list, return_descriptions=False,
@@ -253,20 +301,12 @@ def marlin_processors_dict(look_at_list, return_descriptions=False,
         # comments, leading to an UnicodeDecodeError.
         with open(cc_file_name, "r", encoding="latin-1") as file:
             comment_free_cc = remove_c_comments(file.read())
-
-        processor_name_list, _ = c_function_parameter_list(
-            comment_free_cc, " marlin::Processor")
-        if not processor_name_list:
-            # The marlin namespace might have been used.
-            processor_name_list, _ = c_function_parameter_list(
-                comment_free_cc, " Processor")
-        if not processor_name_list:
-            # The case where the text string does not appear in this file.
+        processor_name, name_was_found = getProcessorName(comment_free_cc)
+        if not name_was_found:
             continue
-        processor_name = cpp_value_parser(processor_name_list[0])
-        if load_only:
-            if processor_name not in load_only:
-                continue
+        if load_only and (processor_name not in load_only):
+            continue
+
         param_1proc, descriptions_1proc = marlin_register_dict(comment_free_cc)
         param_dict[processor_name] = param_1proc
         descriptions_dict[processor_name] = descriptions_1proc
