@@ -9,9 +9,9 @@ import os
 import pathlib
 
 default_simulation_path_starts = [
-    "/home/kunath/ILD/Data_SM",
-    "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws",
-    "/home/kunath/iLCSoft/data/SM",
+    "/grid_mnt/data__DATA/data.polcalice/data/flc/kunath/Data_SM",  # polui/LLR
+    "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws",  # KEK
+    "/home/kunath/iLCSoft/data/SM", # Laptop
 ]
 
 def lcio_file_dict(
