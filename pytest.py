@@ -3,6 +3,9 @@ from pysteer import Pysteer
 # ------------------------------------------------------------------------------
 # Parameter defaults in this project.
 cpd = {"IsolatedLeptonTaggingProcessor": {
+    "IsSelectingOneIsoLep": {"value": "false"},
+    "CutOnTheISOElectronMVA": {"value": "0.3"},
+    "CutOnTheISOMuonMVA": {"value": "0.4"},
     "DirOfISOElectronWeights": {"value":
         "/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02/MarlinReco/v01-25/Analysis/IsolatedLeptonTagging/weights/e1e1h_gg_qqqq_250"},
     "DirOfISOMuonWeights": {"value":
