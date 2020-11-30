@@ -182,7 +182,11 @@ class Pysteer(object):
             Else only the specified polarisations are used.
         : param batch_processes (list[str]): By default (None), all process
             files are used. To restrict the analysis to specific processes, fill
-            this list. This parameter is only used if batch_mode == True.
+            this list.
+            For a more fine grained control, pass a dict. The key functions as
+            both the job name and the folder name. The dict value now must be
+            a list of the lcio file paths.
+            This parameter is only used if batch_mode == True.
         """
         def make_folder():
             now = datetime.now()
@@ -211,19 +215,30 @@ class Pysteer(object):
         run_dir = make_folder()
         if batch_mode:
             if shutil.which("bsub") is not None:
-                cmd_template = "bsub -q s 'Marlin {} &> {} 2>&1'"
+                cmd_template = "bsub -q s -J JOBNAME 'Marlin {} &> {} 2>&1'"
             else:
                 cmd_template = "Marlin {} &> {} 2>&1"
-            for pol, processes_dict in self.lcio_dict.items():
-                if pols and pol in pols:
-                    continue
-                for process, files in processes_dict.items():
-                    if batch_processes and process not in batch_processes:
-                        continue
-                    process_dir = run_dir / pol / process
+            if type(batch_processes) == dict:
+                for folder, files in batch_processes.items():
+                    cmd_t = cmd_template.replace("JOBNAME", folder)
+                    files = [f for f in files if Path(f).exists()]
+                    process_dir = run_dir / folder
                     process_dir.mkdir(parents=True, exist_ok=True)
-                    make_files(files, process_dir, process,
-                        cmd_template=cmd_template)
+                    make_files(files, process_dir, folder,
+                        cmd_template=cmd_t)
+            else:
+                for pol, processes_dict in self.lcio_dict.items():
+                    if pols and pol in pols:
+                        continue
+                    for process, files in processes_dict.items():
+                        if batch_processes and process not in batch_processes:
+                            continue
+                        cmd_template = cmd_template.replace("JOBNAME",
+                                                           f"{process}_{pol}")
+                        process_dir = run_dir / pol / process
+                        process_dir.mkdir(parents=True, exist_ok=True)
+                        make_files(files, process_dir, process,
+                            cmd_template=cmd_template)
         else:
             cmd_template = "Marlin {} &> {} 2>&1"
             if not pols:

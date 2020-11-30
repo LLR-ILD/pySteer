@@ -12,11 +12,13 @@ default_simulation_path_starts = [
     "/grid_mnt/data__DATA/data.polcalice/data/flc/kunath/Data_SM",  # polui/LLR
     "/group/ilc/soft/samples/mc-dbd/ild/dst-merged/250-TDR_ws",  # KEK
     "/home/kunath/iLCSoft/data/SM", # Laptop
+    "/group/ilc/grid/storm/prod/ilc/mc-2020/ild/dst-merged/250-SetA", # KEK new.
 ]
+default_machine = "E250-TDR_ws"
 
 def lcio_file_dict(
     simulation_path_starts=None,
-    exclude=["Pffh_mumu"], require=[], machine="E250-TDR_ws"):
+    exclude=["Pffh_mumu"], require=[], machine=default_machine):
     """Build a dictionary of the .slcio file locations.
 
     Some changes to the code would be necessary if we ever need to include
@@ -54,15 +56,23 @@ def lcio_file_dict(
                     break
             if skip_path:
                 continue
-            prod_machine, _, process, e_pol, p_pol = path.split(".")[-6:-1]
+            # reconstruction_version.simulation_version.detector_model. \
+            # production_machine.process_id.process_name.e_pol-p_pol---.slcio
+            # Where --- differ between the MC runs.
+            prod_machine, _, process, e_pol, p_pol = path.split(".")[3:8]
             pol = e_pol + p_pol[:2]
             if prod_machine != machine or pol not in polarisations:
                 continue
             files_dict[pol][process].append(path)
         [full_files_dict[pol].update(files_dict[pol]) for pol in polarisations]
     if sum([len(d) for d in full_files_dict.values()]) == 0:
-        raise FileNotFoundError("No '.slcio' process files were found in any "
-            "of the subdirectories of: ", simulation_path_starts)
+        ex_txt = ("No matching `.slcio` process files were found in any of the "
+            "subdirectories of:\n   "
+                           + ",\n   ".join(simulation_path_starts) + ".")
+        if machine != default_machine:
+            ex_txt = (f"{ex_txt}\nMaybe your chosen ILC machine option's "
+                      f"data set is not available locally? {machine=}.")
+        raise FileNotFoundError(ex_txt)
     return full_files_dict
 
 
@@ -88,13 +98,13 @@ class MarlinGlobal(object):
         SkipNEvents=0,
         Verbosity="MESSAGE",
         process = "Pe1e1h",
-        simulation_path_starts=None,
+        **lcio_dict_kw,
     ):
         self.MaxRecordNumber = MaxRecordNumber
         self.SkipNEvents = SkipNEvents
         self.Verbosity = Verbosity
 
-        lcio_dict = lcio_file_dict(simulation_path_starts)
+        lcio_dict = lcio_file_dict(**lcio_dict_kw)
         lcio_processes = []
         for pol_dict in lcio_dict.values():
             lcio_processes.extend(pol_dict.keys())

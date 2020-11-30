@@ -1,4 +1,4 @@
-from .marlin_global import MarlinGlobal
+from .marlin_global import MarlinGlobal, lcio_file_dict
 from .marlin_xml import write_steering_file, xml_string
 from .pysteer import Pysteer
 from . import write_processor_parameters
