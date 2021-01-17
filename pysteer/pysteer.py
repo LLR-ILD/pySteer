@@ -243,9 +243,15 @@ class Pysteer(object):
             cmd_template = "Marlin {} &> {} 2>&1"
             if not pols:
                 pols = self.lcio_dict.keys()
-            files = [""]
-            for pol in pols:
-                if self.lcio_dict[pol].get(debug_process):
-                    files.extend(self.lcio_dict[pol].get(debug_process))
+            if not isinstance(debug_process, str):
+                if len(debug_process) == 2:
+                    debug_process, files = debug_process
+                else:
+                    raise Exception(f"{debug_process=}")
+            else:
+                files = [""]
+                for pol in pols:
+                    if self.lcio_dict[pol].get(debug_process):
+                        files.extend(self.lcio_dict[pol].get(debug_process))
             make_files(files, process_dir=run_dir, process=debug_process,
                 cmd_template=cmd_template)

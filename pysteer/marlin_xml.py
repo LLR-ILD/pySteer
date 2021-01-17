@@ -48,12 +48,12 @@ def xml_string(execute_processors, global_dict, project_defaults):
         proc_type, proc_dict = proc
         header = f"  <processor name=\"{name}\" type=\"{proc_type}\">\n"
         xml_pieces.append(header)
+        if "direct_xml" in proc_dict:
+            xml_pieces.append(proc_dict["direct_xml"])
         xml_pieces.append(xml_parameters(
             default_dict=project_defaults[proc_type],
             changes_dict=proc_dict
         ))
-        if "direct_xml" in proc_dict:
-            xml_pieces.append(proc_dict["direct_xml"])
         xml_pieces.append("\n  </processor>\n\n")
     xml_pieces.append("</marlin>")
     xml_content = "".join(xml_pieces)
