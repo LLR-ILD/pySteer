@@ -248,12 +248,12 @@ class Pysteer(object):
                                         f"{n_process_iterations=} != 1?")
                                 it_id = f"_{i:02}"
                             job_name = f"{pol}_{process}{it_id}"
-                            cmd_template = cmd_template.replace("JOBNAME",
-                                                                job_name)
+                            cmd_t = cmd_template.replace("JOBNAME",
+                                                         job_name)
                             process_dir = run_dir / pol / (process + it_id)
                             process_dir.mkdir(parents=True, exist_ok=True)
                             make_files(files, process_dir, process,
-                                cmd_template=cmd_template)
+                                cmd_template=cmd_t)
         else:
             cmd_template = "Marlin {} &> {} 2>&1"
             if not pols:
