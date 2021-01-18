@@ -169,7 +169,7 @@ class Pysteer(object):
 
     # --------------------------------------------------------------------------
     def run(self, batch_mode=True, debug_process="Pe3e3h", pols=None,
-        batch_processes=None):
+        batch_processes=None, n_process_iterations=1):
         """Actually do the analysis by calling Marlin on a steering file.
 
         : param batch_mode (bool): If true (default), and if a batch system is
@@ -219,6 +219,10 @@ class Pysteer(object):
             else:
                 cmd_template = "Marlin {} &> {} 2>&1"
             if type(batch_processes) == dict:
+                # This (dict) should be viewed as a legacy option (only).
+                if n_process_iterations != 1:
+                    raise Exception("type(batch_processes) == dict, but "
+                        f"{n_process_iterations=} != 1. You can't use both!")
                 for folder, files in batch_processes.items():
                     cmd_t = cmd_template.replace("JOBNAME", folder)
                     files = [f for f in files if Path(f).exists()]
@@ -233,12 +237,23 @@ class Pysteer(object):
                     for process, files in processes_dict.items():
                         if batch_processes and process not in batch_processes:
                             continue
-                        cmd_template = cmd_template.replace("JOBNAME",
-                                                           f"{process}_{pol}")
-                        process_dir = run_dir / pol / process
-                        process_dir.mkdir(parents=True, exist_ok=True)
-                        make_files(files, process_dir, process,
-                            cmd_template=cmd_template)
+                        for i in range(n_process_iterations):
+                            max_per_job = self.marlin_global.MaxRecordNumber
+                            self.marlin_global.SkipNEvents = i * max_per_job
+                            if n_process_iterations == 1:
+                                it_id = ""
+                            else:
+                                if max_per_job == -1:
+                                    raise Exception("MaxRecordNumber = -1 and "
+                                        f"{n_process_iterations=} != 1?")
+                                it_id = f"_{i:02}"
+                            job_name = f"{pol}_{process}{it_id}"
+                            cmd_template = cmd_template.replace("JOBNAME",
+                                                                job_name)
+                            process_dir = run_dir / pol / (process + it_id)
+                            process_dir.mkdir(parents=True, exist_ok=True)
+                            make_files(files, process_dir, process,
+                                cmd_template=cmd_template)
         else:
             cmd_template = "Marlin {} &> {} 2>&1"
             if not pols:
