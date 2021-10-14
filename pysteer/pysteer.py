@@ -168,6 +168,9 @@ class Pysteer(object):
             self.execute_processors, global_dict, self.processors_dict)
 
     # --------------------------------------------------------------------------
+    def _get_process_name(self, process):
+        return process
+
     def run(self, batch_mode=True, debug_process="Pe3e3h", pols=None,
         batch_processes=None, n_process_iterations=1):
         """Actually do the analysis by calling Marlin on a steering file.
@@ -247,12 +250,13 @@ class Pysteer(object):
                                     raise Exception("MaxRecordNumber = -1 and "
                                         f"{n_process_iterations=} != 1?")
                                 it_id = f"_{i:02}"
-                            job_name = f"{pol}_{process}{it_id}"
+                            process_name = self._get_process_name(process)
+                            job_name = f"{pol}_{process_name}{it_id}"
                             cmd_t = cmd_template.replace("JOBNAME",
                                                          job_name)
-                            process_dir = run_dir / pol / (process + it_id)
+                            process_dir = run_dir / pol / f"{process_name}{it_id}"
                             process_dir.mkdir(parents=True, exist_ok=True)
-                            make_files(files, process_dir, process,
+                            make_files(files, process_dir, process_name,
                                 cmd_template=cmd_t)
         else:
             cmd_template = "Marlin {} &> {} 2>&1"
