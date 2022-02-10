@@ -12,7 +12,7 @@ import sys
 from .marlin_global import lcio_file_dict, MarlinGlobal
 from .marlin_xml import write_steering_file, xml_string
 from .write_processor_parameters import (
-    update_registered, processors_dict_from_json)
+    default_ilcsoft_path, update_registered, processors_dict_from_json)
 
 class Pysteer(object):
     """Interface for the creation of Marlin steering files.
@@ -47,7 +47,7 @@ class Pysteer(object):
         self,
         change_parameter_defaults={},
         confirm_ilcsoft_defaults=False,
-        ilcsoft_path="/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02",
+        ilcsoft_path=default_ilcsoft_path,
         ilcsoft_processors=[
             "InitializeDD4hep",
             "IsolatedLeptonTaggingProcessor",

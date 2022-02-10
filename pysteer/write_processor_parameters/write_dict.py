@@ -8,6 +8,7 @@ import json
 import os
 
 from .extract_from_cpp import marlin_processors_dict
+from .processor_paths import default_ilcsoft_path
 from .processor_paths import load_local_processor_defaults
 from .processor_paths import load_global_processor_defaults
 
@@ -60,7 +61,7 @@ def write_jsons(type_prefix, processors_dict, descriptions_dict):
 # Main exposing functions for this folder.
 def update_registered(
     confirm_ilcsoft_defaults=False,
-    ilcsoft_path="/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02",
+    ilcsoft_path=default_ilcsoft_path,
     local_paths=None,
     load_only=None,
     ):

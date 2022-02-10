@@ -50,8 +50,10 @@ def load_local_processor_defaults(processor_search_paths=None):
 
 # ------------------------------------------------------------------------------
 # 2. Global ILCSoft processors.
+default_ilcsoft_path = "/cvmfs/ilc.desy.de/sw/x86_64_gcc82_centos7/v02-02-03"
+
 def load_global_processor_defaults(
-    ilcsoft_path="/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02",
+    ilcsoft_path=default_ilcsoft_path,
     ):
     """
 
