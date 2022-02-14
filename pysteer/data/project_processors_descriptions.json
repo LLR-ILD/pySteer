@@ -1,82 +1,44 @@
 {
-    "CheckIsolatedLeptonTaggingProcessor": {
-        "OutputRootFile": "Name of the output root file.",
+    "IsolatedPhotonTaggingProcessor": {
+        "CosConeLarge": "cosine of the larger cone",
+        "CosConeSmall": "cosine of the smaller cone",
+        "CutOnTheISOPhotonMVA": "Cut on the mva output of isolated photon selection",
+        "DirOfISOPhotonWeights": "Directory of Weights for the Isolated Photon MVA Classification",
+        "InputPandoraPFOsCollection": "Name of the PandoraPFOs collection",
+        "IsSelectingOneIsoPhoton": "flag to select one most like isolated photon",
+        "MinEForPhoton": "Minimum energy for photon",
+        "OutputIsoPhotonsCollection": "Name of collection with the selected isolated photon",
+        "OutputPFOsWithoutIsoPhotonCollection": "Name of the new PFOs collection without isolated photon",
+        "RatioChargedConeEnergy": "Cut on the ratio of Charged Cone Energy over Photon Energy",
+        "RatioNeutralConeEnergy": "Cut on the ratio of Neutral Cone Energy over Photon Energy"
+    },
+    "OnlyKeepInvisibleHiggsProcessor": {
+        "MCParticleCollection": "MCParticle collection for Higgs decay truth information."
+    },
+    "OverlayRemoverTruthProcessor": {
+        "HiggsOnlyCollection": "Name of the new PFO collection with (only) the Higgs decay remnants.",
         "PfoCollection": "The Pandora PFO collection name."
     },
-    "CheckRelationProcessor": {
-        "MCParticleCollection": "This MCParticle collection should link to the specified .\"\n      \"ReconstructedParticle collection.",
-        "PfoCollection": "This ReconstructedParticle collection should link to the specified .\"\n      \"MCParticle collection.",
-        "RelationCollection": "Collection of relations that link the Monte Carlo particles with the \"\n    \"reconstructed particles."
-    },
-    "DraftProcessor": {},
-    "ExampleProcessor": {
+    "ParticleTypeRemoverTruthProcessor": {
+        "PDGFreeCollection": "Name of the new PFO collection with (only) the Higgs decay remnants.",
         "PfoCollection": "The Pandora PFO collection name.",
-        "PfoEnergyCut": "A cut to apply on the pfo energy."
+        "RemovePDG": "E.g. 25 to remove all remnants from Higgs decay(s)."
     },
-    "MasterThesisRootProcessor": {
+    "SimpleEventVectorProcessor": {
+        "FlavorTaggedJets": "Jet collection on which the flavor tagging was performed.",
         "HiggsCollection": "Name of the new PFO collection with (only) the Higgs decay remnants.",
-        "OutputRootFile": "Name of the output root file.",
-        "ZCollection": "Name of the new PFO collection with (only) the Z decay remnants.",
-        "ZDecayChannel": "Can be ZDec_EL, ZDec_MU, ZDec_TAU or ZDec_NU."
-    },
-    "McAsReconstructedProcessor": {
-        "ImitateDetectorAcceptance": "Choose that an imitation of the detector acceptance is applied (beam pipe \"\n      \"region rejection, calorimeter thresholds for neutral, pT thresholds for \"\n      \"charged particles).",
-        "KeepOnlyVisible": "Choose that only those MC particles with a type that is visible in the \"\n      \"detector should be kept.",
-        "MCInCollection": "MCParticle collection from which we want a ReconstructedParticle version.",
-        "MCRecLinkCollectionName": "The new (trivial) relations collection between the newly created \"\n      \"ReconstructedParticles and their respective underlying MCParticle.",
-        "MaxCosTheta": "Cut on |cos(Theta)| to imitate the forward/backward region without \"\n      \"reliable reconstruction.",
-        "NeutralHCALCut": "Cut on the energy [Gev] applied to the neutral particles (but the photon).\"\n      \" Above this value we assume it is possible to detect it in the HCAL.",
-        "PhotonECALCut": "Cut on the energy [Gev] applied to the photons. Above this value we assume\"\n      \" it is possible to detect the photon in the ECAL.",
-        "RPOutCollection": "Name of the ReconstructedParticles collection created by this processor.",
-        "chargedMinPT": "Cut on the transverse momentum [Gev]. This is applied for charged \"\n      \"particles."
-    },
-    "SkipEmptyEventsProcessor": {
-        "SkipCollection": "Name of the LCCollection for which the event should be skipped in case it \"\n      \"is empty."
-    },
-    "SlcioToRootProcessor": {
-        "PfoCollection": "The RP collection whoms (partial) information should be passed into the \"\n      \".root file.",
-        "outputRootFileName": "Name of the output root file.",
-        "treeName": "Name of the tree. Should be the process type."
+        "MCParticleCollection": "MCParticle collection for Higgs decay truth information.",
+        "OutputRootFile": "Name of the output root file."
     },
     "SplitOffZProcessor": {
         "HiggsCollection": "Name of the new PFO collection with (only) the Higgs decay remnants.",
+        "IsoFreeCollection": "A Pandora PFO collection, assumed to be without isolated leptons.",
+        "IsoLeptonCollection": "A collection as produced by IsolatedLeptonTaggingProcessor.",
+        "MaxPassingPreselection": "Number of events passing the preselection after which the Marlin run will be stopped.",
         "OutputRootFile": "Name of the output root file.",
         "OverlayCollection": "Name of the new PFO collection with (only) the overlay.",
-        "PfoCollection": "The Pandora PFO collection name.",
         "ZCollection": "Name of the new PFO collection with (only) the Z decay remnants.",
         "ZDecayChannel": "Can be ZDec_EL, ZDec_MU, ZDec_TAU or ZDec_NU.",
         "photonRecombinationCos": "Cosine of the angle up to which photons should be recombined with an \"\n      \"isolated lepton for the Z reconstruction."
-    },
-    "TauConesBDTInputProcessor": {
-        "IsolationConeAngle": "Outer isolation cone around the search cone of the tau jet in rad.",
-        "MCParticleCollection": "This MCParticle collection should link to the specified .\"\n      \"ReconstructedParticle collection.",
-        "MaxCosTheta": "Cut on the cosine of theta to suppress background.",
-        "MinPtSeed": "Minimum tranverse momentum of tau seed.",
-        "OutputRootFile": "Name of the output root file.",
-        "PfoCollection": "The Pandora PFO collection name.",
-        "PtCut": "Cut on Pt to suppress background.",
-        "RelationCollection": "Collection of relations that link the Monte Carlo particles with the \"\n    \"reconstructed particles.",
-        "SearchConeAngle": "Opening angle of the search cone for the tau jet in rad.",
-        "TauFlag": "Flag indicating properties that the reconstructed tau must have."
-    },
-    "TauConesProcessor": {
-        "IsolationConeAngle": "Outer isolation cone around the search cone of the tau jet in rad.",
-        "IsolationEnergy": "Maximal allowed energy within the isolation cone region.",
-        "MaxChargedRemnants": "Upper limit on the number of charged tracks that can belong to a tau \"\n    \"candidate.",
-        "MaxCosTheta": "Cut on the cosine of theta to suppress background.",
-        "MaxInvariantMass": "Upper limit on the invariant mass of the tau candidate.",
-        "MaxIsoParticles": "Upper limit on the number of particles in the isolation cone (without tau \"\n    \"cone).",
-        "MaxRemnants": "Upper limit on the number of remanants of a tau candidate.",
-        "MinPtSeed": "Minimum tranverse momentum of tau seed.",
-        "OutputRootFile": "Name of the output root file.",
-        "PfoCollection": "The Pandora PFO collection name.",
-        "PtCut": "Cut on Pt to suppress background.",
-        "SearchConeAngle": "Opening angle of the search cone for the tau jet in rad.",
-        "TauCollection": "Name of the new PFO collection of tau candidates.",
-        "TauRelationCollection": "Name of the relation collection linking the tau candidates to their \"\n    \"counterparts in the ReconstructedParticle collection.",
-        "TauRestCollection": "Name of the new PFO collection containing all those particles that are \"\n      \"not part of a tau candidate."
-    },
-    "TauFromTrackProcessor": {
-        "PfoCollection": "The Pandora PFO collection name."
     }
 }

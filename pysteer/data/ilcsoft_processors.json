@@ -84,5 +84,78 @@
         "UseYokeForMuonID": {
             "value": "false"
         }
+    },
+    "LCIOOutputProcessor": {
+        "DropCollectionNames": {
+            "value": "dropNamesExamples"
+        },
+        "DropCollectionTypes": {
+            "value": "dropTypesExample"
+        },
+        "FullSubsetCollections": {
+            "value": "fullSubsetExample"
+        },
+        "KeepCollectionNames": {
+            "value": "keepNamesExample"
+        },
+        "LCIOOutputFile": {
+            "value": "outputfile.slcio"
+        },
+        "LCIOWriteMode": {
+            "value": "None"
+        },
+        "SplitFileSizekB": {
+            "value": "1992294"
+        }
+    },
+    "LcfiplusProcessor": {
+        "Algorithms": {
+            "value": "vector<string>()"
+        },
+        "BeamSizeX": {
+            "value": "639e-6"
+        },
+        "BeamSizeY": {
+            "value": "5.7e-6"
+        },
+        "BeamSizeZ": {
+            "value": "9.13e-2"
+        },
+        "IgnoreLackOfVertexRP": {
+            "value": "0"
+        },
+        "MCPCollection": {
+            "lcioInType": "LCIO::MCPARTICLE",
+            "value": ""
+        },
+        "MCPFORelation": {
+            "lcioInType": "LCIO::LCRELATION",
+            "value": ""
+        },
+        "MagneticField": {
+            "value": "0.0"
+        },
+        "PFOCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": ""
+        },
+        "PIDAlgorithmName": {
+            "value": "LikelihoodPID"
+        },
+        "PrintEventNumber": {
+            "value": "0"
+        },
+        "ReadSubdetectorEnergies": {
+            "value": "1"
+        },
+        "TrackHitOrdering": {
+            "value": "0"
+        },
+        "UpdateVertexRPDaughters": {
+            "value": "1"
+        },
+        "UseMCP": {
+            "value": "0"
+        }
     }
 }

@@ -1,106 +1,103 @@
 {
-    "CheckIsolatedLeptonTaggingProcessor": {
-        "OutputRootFile": {
-            "value": "check_iso_lepton_tagging"
+    "IsolatedPhotonTaggingProcessor": {
+        "CosConeLarge": {
+            "value": "0.95"
+        },
+        "CosConeSmall": {
+            "value": "0.98"
+        },
+        "CutOnTheISOPhotonMVA": {
+            "value": "0.5"
+        },
+        "DirOfISOPhotonWeights": {
+            "value": "isolated_photon_weights"
+        },
+        "InputPandoraPFOsCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "IsSelectingOneIsoPhoton": {
+            "value": "false"
+        },
+        "MinEForPhoton": {
+            "value": "5."
+        },
+        "OutputIsoPhotonsCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "ISOPhotons"
+        },
+        "OutputPFOsWithoutIsoPhotonCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOsWithoutIsoPhoton"
+        },
+        "RatioChargedConeEnergy": {
+            "value": "0.1"
+        },
+        "RatioNeutralConeEnergy": {
+            "value": "0.2"
+        }
+    },
+    "OnlyKeepInvisibleHiggsProcessor": {
+        "MCParticleCollection": {
+            "lcioInType": "LCIO::MCPARTICLE",
+            "value": "MCParticlesSkimmed"
+        }
+    },
+    "OverlayRemoverTruthProcessor": {
+        "HiggsOnlyCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "HiggsOnly"
         },
         "PfoCollection": {
             "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
             "value": "PandoraPFOs"
         }
     },
-    "CheckRelationProcessor": {
+    "ParticleTypeRemoverTruthProcessor": {
+        "PDGFreeCollection": {
+            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "WithoutDecaysFromPDG"
+        },
+        "PfoCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "RemovePDG": {
+            "value": "25"
+        }
+    },
+    "SimpleEventVectorProcessor": {
+        "FlavorTaggedJets": {
+            "lcioInType": "LCIO::MCPARTICLE",
+            "value": "No_LCFIPlus"
+        },
+        "HiggsCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "HiggsOnlyPFOs"
+        },
         "MCParticleCollection": {
             "lcioInType": "LCIO::MCPARTICLE",
             "value": "MCParticlesSkimmed"
         },
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
-        },
-        "RelationCollection": {
-            "lcioInType": "LCIO::LCRELATION",
-            "value": "RecoMCTruthLink"
-        }
-    },
-    "DraftProcessor": {},
-    "ExampleProcessor": {
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
-        },
-        "PfoEnergyCut": {
-            "value": "0."
-        }
-    },
-    "MasterThesisRootProcessor": {
-        "HiggsCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "HRemnantsPFOs"
-        },
         "OutputRootFile": {
-            "value": "master_thesis"
-        },
-        "ZCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "ZRemnantsPFOs"
-        },
-        "ZDecayChannel": {
-            "value": "ZDec_MU"
-        }
-    },
-    "McAsReconstructedProcessor": {
-        "ImitateDetectorAcceptance": {
-            "value": "true"
-        },
-        "KeepOnlyVisible": {
-            "value": "true"
-        },
-        "MCInCollection": {
-            "lcioInType": "LCIO::MCPARTICLE",
-            "value": "MCParticlesSkimmed"
-        },
-        "MCRecLinkCollectionName": {
-            "lcioOutType": "LCIO::LCRELATION",
-            "value": "MCRecLink"
-        },
-        "MaxCosTheta": {
-            "value": "0.995"
-        },
-        "NeutralHCALCut": {
-            "value": "0.5"
-        },
-        "PhotonECALCut": {
-            "value": "0.2"
-        },
-        "RPOutCollection": {
-            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "MCParticlesNowRP"
-        },
-        "chargedMinPT": {
-            "value": "0.105"
-        }
-    },
-    "SkipEmptyEventsProcessor": {
-        "SkipCollection": {
-            "value": "PandoraPFOs"
-        }
-    },
-    "SlcioToRootProcessor": {
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
-        },
-        "outputRootFileName": {
-            "value": "rp_simple"
-        },
-        "treeName": {
-            "value": "process?"
+            "value": "simple_event_vector"
         }
     },
     "SplitOffZProcessor": {
         "HiggsCollection": {
             "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "HRemnantsPFOs"
+            "value": "HiggsOnlyPFOs"
+        },
+        "IsoFreeCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "PandoraPFOs"
+        },
+        "IsoLeptonCollection": {
+            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
+            "value": "ISOLeptons"
+        },
+        "MaxPassingPreselection": {
+            "value": "-1"
         },
         "OutputRootFile": {
             "value": "split_off_z"
@@ -109,111 +106,15 @@
             "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
             "value": "OverlayPFOs"
         },
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
-        },
         "ZCollection": {
             "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "ZRemnantsPFOs"
+            "value": "ZOnlyPFOs"
         },
         "ZDecayChannel": {
             "value": "ZDec_MU"
         },
         "photonRecombinationCos": {
             "value": "0.99"
-        }
-    },
-    "TauConesBDTInputProcessor": {
-        "IsolationConeAngle": {
-            "value": "0.2"
-        },
-        "MCParticleCollection": {
-            "lcioInType": "LCIO::MCPARTICLE",
-            "value": "MCParticlesSkimmed"
-        },
-        "MaxCosTheta": {
-            "value": "0.99"
-        },
-        "MinPtSeed": {
-            "value": "5.0"
-        },
-        "OutputRootFile": {
-            "value": "tau_cones_bdt_input"
-        },
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
-        },
-        "PtCut": {
-            "value": "0.2"
-        },
-        "RelationCollection": {
-            "lcioInType": "LCIO::LCRELATION",
-            "value": "RecoMCTruthLink"
-        },
-        "SearchConeAngle": {
-            "value": "0.1"
-        },
-        "TauFlag": {
-            "value": "0"
-        }
-    },
-    "TauConesProcessor": {
-        "IsolationConeAngle": {
-            "value": "0.2"
-        },
-        "IsolationEnergy": {
-            "value": "2.0"
-        },
-        "MaxChargedRemnants": {
-            "value": "4"
-        },
-        "MaxCosTheta": {
-            "value": "0.99"
-        },
-        "MaxInvariantMass": {
-            "value": "2.0"
-        },
-        "MaxIsoParticles": {
-            "value": "100"
-        },
-        "MaxRemnants": {
-            "value": "10"
-        },
-        "MinPtSeed": {
-            "value": "5.0"
-        },
-        "OutputRootFile": {
-            "value": "tau_cones"
-        },
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
-        },
-        "PtCut": {
-            "value": "0.2"
-        },
-        "SearchConeAngle": {
-            "value": "0.1"
-        },
-        "TauCollection": {
-            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "TauPFOs"
-        },
-        "TauRelationCollection": {
-            "lcioOutType": "LCIO::LCRELATION",
-            "value": "TauRelation"
-        },
-        "TauRestCollection": {
-            "lcioOutType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "TauRestPFOs"
-        }
-    },
-    "TauFromTrackProcessor": {
-        "PfoCollection": {
-            "lcioInType": "LCIO::RECONSTRUCTEDPARTICLE",
-            "value": "PandoraPFOs"
         }
     }
 }
