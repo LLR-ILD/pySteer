@@ -1,2 +1,4 @@
 *__pycache__*
+pysteer/data
+pysteer/.machines
 tmp/*

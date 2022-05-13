@@ -20,14 +20,14 @@ class CrossSectionException(Exception):
 
 
 def get_polarization_weights(pol=(0.8, -0.3)):
-    """Calculate the polarisation weights."""
+    """Calculate the polarization weights."""
 
     def is_valid_pol(p):
         return p >= -1 and p <= 1
 
     if len(pol) != 2 or not is_valid_pol(pol[0]) or not is_valid_pol(pol[1]):
         raise CrossSectionException(
-            f"The polarisation {pol} is not understood. "
+            f"The polarization {pol} is not understood. "
             "It should be of the same form as (0.8, -0.3)."
         )
     e, p = pol
@@ -48,11 +48,14 @@ class CrossSections:
     machine_dir = Path(__file__).parent / ".machines"
     meta_json = "genmetaByFile.json"
     get_polarization_weights = get_polarization_weights
+    modes = {"cs": "cross_section_in_fb", "n_events": "total_number_of_events"}
 
-    def __init__(self, machine: str) -> None:
+    def __init__(self, machine: str, mode="cs") -> None:
         """Get process cross sections for an ILC machine scenario."""
+        assert mode in self.modes, f"mode {mode} not in {self.modes}"
+        self._mode = mode
         self._machine = machine
-        self.machine_path = self.machine_dir / f"{machine}.json"
+        self.machine_path = self.machine_dir / f"{machine}-{mode}.json"
 
         if not self.machine_path.exists():
             if not (self.machine_dir / self.meta_json).exists():
@@ -78,7 +81,11 @@ class CrossSections:
             for process, cs_string in machine_meta_data_str[polarization].items():
                 if cs_string == "":
                     cs_string = "inf"
-                machine_meta_data[polarization][process] = float(cs_string)
+                if self._mode == "n_events":
+                    cs = int(cs_string)
+                else:
+                    cs = float(cs_string)
+                machine_meta_data[polarization][process] = cs
         return machine_meta_data
 
     def polarization_weighted(self, polarization) -> Dict[str, Dict[str, float]]:
@@ -115,7 +122,13 @@ class CrossSections:
             if entry_machine != machine:
                 continue
             polarization = "".join(key.split(".")[-4:-2])
-            cross_section = process_dict["cross_section_in_fb"]
+            cross_section = process_dict[self.modes[self._mode]]
+            if process in machine_cs_dict[polarization]:
+                old_val = machine_cs_dict[polarization][process]
+                if self._mode == "n_events":
+                    cross_section = str(int(cross_section) + int(old_val))
+                else:
+                    assert cross_section == old_val, f"{cross_section} != {old_val}"
             machine_cs_dict[polarization][process] = cross_section
 
         if len(machine_cs_dict) == 0:
@@ -129,5 +142,5 @@ class CrossSections:
 
 
 if __name__ == "__main__":
-    print(CrossSections("E250-SetA").per_polarization())
+    print(CrossSections("E250-SetA", mode="n_events").per_polarization())
     print(get_polarization_weights((0.2, -0.3)))

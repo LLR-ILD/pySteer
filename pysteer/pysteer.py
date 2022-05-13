@@ -9,6 +9,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+from .get_cross_sections import CrossSections
 from .marlin_global import lcio_file_dict, MarlinGlobal
 from .marlin_xml import write_steering_file, xml_string
 from .write_processor_parameters import (
@@ -56,8 +57,6 @@ class Pysteer(object):
         marlin_global=None,
         set_parameter_value={},
     ):
-        import sys
-        print(sys.argv[0])
         self.change_parameter_defaults = change_parameter_defaults
         self.confirm_ilcsoft_defaults = confirm_ilcsoft_defaults
         self.execute_processors = [] # List filled with processor-dicts that
@@ -234,6 +233,7 @@ class Pysteer(object):
                     make_files(files, process_dir, folder,
                         cmd_template=cmd_t)
             else:
+                n_events_max = self._get_n_events()
                 for pol, processes_dict in self.lcio_dict.items():
                     if pols and pol in pols:
                         continue
@@ -242,7 +242,10 @@ class Pysteer(object):
                             continue
                         for i in range(n_process_iterations):
                             max_per_job = self.marlin_global.MaxRecordNumber
-                            self.marlin_global.SkipNEvents = i * max_per_job
+                            if i * max_per_job > n_events_max[pol][process]:
+                                break
+                            else:
+                                self.marlin_global.SkipNEvents = i * max_per_job
                             if n_process_iterations == 1:
                                 it_id = ""
                             else:
@@ -274,3 +277,11 @@ class Pysteer(object):
                         files.extend(self.lcio_dict[pol].get(debug_process))
             make_files(files, process_dir=run_dir, process=debug_process,
                 cmd_template=cmd_template)
+
+    def _get_n_events(self):
+        d = self.lcio_dict
+        key1 = next(iter(d))
+        key2 = next(iter(d[key1]))
+        arbitrary_file_path = d[key1][key2][0]
+        machine = os.path.basename(arbitrary_file_path).split(".")[3]
+        return CrossSections(machine, mode="n_events").per_polarization()
